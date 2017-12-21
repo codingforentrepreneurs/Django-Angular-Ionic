@@ -5,13 +5,245 @@
 <div class='container'>
     <div class='row'>
         <div class='col'>
-            <h1>API Docs</h1>
-            <p>/api/auth/register/</p>
-            <p>/api/auth/login/</p>
-            <p>/api/status/ LSC</p> List Search Create
-            <p>/api/status/:id/ -- RUD</p> Retrieve Update Delete
-            <p>/api/user/:username/</p>
-            <p>/api/user/:username/status/</p>
+            <h1 class='my-5'>API Docs</h1>
+            <hr/>
+
+            <h4 class='my-3'>Auth</h4>
+            <div>
+                <p><code>/api/auth/register/</code></p>
+                <table class='table ml-5'>
+                    <tr>
+                        <td>
+                            <b>Endpoint</b>
+                        </td>
+                        <td><code>/api/auth/register/</code></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Method</b>
+                        </td>
+                        <td><code>POST</code></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Content Type</b>
+                        </td>
+                        <td>
+                            <code>application/json</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Request Body</b>
+                        </td>
+                        <td>
+                            <pre class='pre-scrollable'><code>{
+    'username': <b>[string]</b>,
+    'email': <b>[string]</b>,
+    'password: <b>[string]</b>,
+    'password2: <b>[string]</b>,
+}</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Response Body</b>
+                        </td>
+                        <td>
+                            <pre class='pre-scrollable'><code>{
+    'username': <b>[string]</b>,
+    'email': <b>[string]</b>,
+    'token': <b>[string]</b>,
+    'expires': <b>[timestamp]</b>,
+    'message': <b>[string]</b>,
+}</code></pre>
+                        </td>
+                    </tr>
+
+                </table>
+
+
+
+                
+            </div>
+            <div>
+                <p><code>/api/auth/login/</code></p>
+                <table class='table ml-5'>
+                    <tr>
+                        <td>
+                            <b>Endpoint</b>
+                        </td>
+                        <td><code>/api/auth/login/</code></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Method</b>
+                        </td>
+                        <td><code>POST</code></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Content Type</b>
+                        </td>
+                        <td>
+                            <code>application/json</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Request Body</b>
+                        </td>
+                        <td>
+                            <pre class='pre-scrollable'><code>{
+    'username': <b>[string]</b>,
+    'email': <b>[string]</b>,
+    'password: <b>[string]</b>,
+}</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Response Body</b>
+                        </td>
+                        <td>
+                            <pre class='pre-scrollable'><code>{
+    'username': <b>[string]</b>,
+    'token': <b>[string]</b>,
+    'expires': <b>[timestamp]</b>,
+}</code></pre>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <hr/>
+            <h4 class='my-3'>Status</h4>
+            <div>
+                <p><code>/api/status/</code></p>
+                <table class='table ml-5'>
+                    <tr>
+                        <td>
+                            <b>Endpoint</b>
+                        </td>
+                        <td><code>/api/status/</code></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Methods</b>
+                        </td>
+                        <td><code>GET</code></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Content Type</b>
+                        </td>
+                        <td>
+                            <code>application/json</code>
+                        </td>
+                    </tr>
+                        <td>
+                            <b>Response Body</b>
+                        </td>
+                        <td>
+                            <pre class='pre-scrollable'><code>{
+    "count":        [number],
+    "next":         [urlString or None],
+    "previous":     [urlString or None],
+    "results":      [{
+                        "uri": [urlString],
+                        "id": [number],
+                        "user": {
+                            "id": [number],
+                            "username": [string],
+                            "uri": [urlString]
+                        },
+                        "content": [string or None],
+                        "image": [urlString or None]
+                }]
+}</code></pre>
+                        </td>
+                    </tr>
+
+                </table>
+                <table class='table ml-5'>
+                    <tr>
+                        <td>
+                            <b>Endpoint</b>
+                        </td>
+                        <td><code>/api/status/</code></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Methods</b>
+                        </td>
+                        <td><code>POST</code></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Content Type</b>
+                        </td>
+                        <td>
+                            <code>application/json</code>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                            <b>Authorization Header</b>
+                        </td>
+                        <td>
+                            <code>"Authorization: JWT [token]"</code>
+                        </td>
+                    </tr>
+                    <tr>
+                    <td>
+                            <b>Request Body</b>
+                        </td>
+                        <td>
+                            <pre class='pre-scrollable'><code>{
+                            "content": [string or None],
+                        "image": [urlString or None]
+}
+</code></pre>
+                        </td>
+                    </tr>
+                        <tr>
+                        <td>
+                            <b>Response Body</b>
+                        </td>
+                        <td>
+                            <pre class='pre-scrollable'><code>{
+                        "uri": [urlString],
+                        "id": [number],
+                        "user": {
+                            "id": [number],
+                            "username": [string],
+                            "uri": [urlString]
+                        },
+                        "content": [string or None],
+                        "image": [urlString or None]
+}</code></pre>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div>
+                <p><code>/api/status/<:id>/</code></p>
+                <p></p>
+            </div>
+
+            <hr/>
+            <h4 class='my-3'>User</h4>
+
+            <div>
+                <p><code>/api/user/<:username>/</code></p>
+                <p></p>
+            </div>
+
+            <div>
+                <p><code>/api/user/<:username>/status/</code></p>
+                <p></p>
+            </div>
         </div>
     </div>
 </div>

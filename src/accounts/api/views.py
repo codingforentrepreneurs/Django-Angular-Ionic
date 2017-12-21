@@ -20,6 +20,11 @@ User = get_user_model()
 
 
 class AuthAPIView(APIView):
+    '''
+    post: \n
+    - username or email (required)\n
+    - password (required)
+    '''
     permission_classes      = [AnonPermissionOnly]
     def post(self, request, *args, **kwargs):
         #print(request.user)
