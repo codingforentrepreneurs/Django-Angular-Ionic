@@ -1,3 +1,17 @@
-<p>
-  status-create works!
-</p>
+<form [formGroup]='statusForm' #statusDir='ngForm' (submit)='handleSubmit($event, statusDir, statusForm)'>
+    <textarea id='content' name='content' formControlName='content'></textarea>
+        
+    <div *ngIf='content.invalid && (content.dirty || content.touched)'>
+        <div *ngIf='content.errors.required'>
+            Content is required.
+        </div>
+        <div *ngIf='content.errors.maxlength'>
+            Max length is 280
+        </div>
+        <div *ngIf='content.errors.minlength'>
+            Min length is 4
+        </div>
+    </div>
+    <button type='submit' class='btn btn-default' [disabled]='statusForm.invalid'>Submit</button>
+    <button type='button' class='btn btn-default' (click)='statusDir.resetForm({})'>Reset</button>
+</form>
