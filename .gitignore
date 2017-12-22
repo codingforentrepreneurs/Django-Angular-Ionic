@@ -9,7 +9,8 @@ static-server/media-root/status/cfe/
 # Django related 
 # src/<yourproject>/settings/local.py
 # static-cdn/  # any collected static files 
-
+static-server/static-root/admin/
+static-server/static-root/rest_framework/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
