@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { StatusComponent } from './status/status.component';
 
 
@@ -12,6 +13,7 @@ import { StatusComponent } from './status/status.component';
     StatusComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule
   ],
   providers: [],
