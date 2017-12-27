@@ -51,5 +51,12 @@ Full Course is here: [http://joincfe.com/courses/django-angular-ionic](https://w
 
 [9 - Angular Forms, Validation & Data](../../tree/a7a65277e83f2bad8c1b59df846a744db41e98dd/)
 
+[10 - ng Service](../../tree/f06ffc4d6c21963187f667b32e43e923bfc67193/)
+
+[11 - Http Client Part 1 - List View](../../tree/dd40e76eeb4b93bde12df3a7af9ebdabc15123fc/)
+
+[12 - Http Client Part 2 - Detail View](../../tree/bd3a4efdf7057353acdf81ec481890e59eab1815/)
+
+[13 - Angular Status Model](../../tree/a9dc34a734a90fa58f3d0b77dc11759e73a01821/)
 
 
