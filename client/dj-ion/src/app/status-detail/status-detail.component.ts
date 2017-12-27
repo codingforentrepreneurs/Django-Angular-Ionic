@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
  
-import { StatusAPIService } from '../status/status.service';
+import { Status } from '../status/status';
 
+import { StatusAPIService } from '../status/status.service';
 @Component({
   selector: 'app-status-detail',
   templateUrl: './status-detail.component.html',
@@ -11,7 +12,7 @@ import { StatusAPIService } from '../status/status.service';
 })
 export class StatusDetailComponent implements OnInit {
    detailId: any;
-   statusItem: any;
+   statusItem: Status;
   constructor(
       private statusAPI: StatusAPIService,
       private location: Location,
@@ -26,7 +27,6 @@ export class StatusDetailComponent implements OnInit {
           this.goBack()
       } else {
         this.statusAPI.get(number).subscribe(data=>{
-          console.log(data)
           this.statusItem = data
         })
       }

@@ -6,6 +6,10 @@ import { Observable } from 'rxjs/Observable';
 import { of } from  'rxjs/observable/of';
 import { catchError, map, tap } from  'rxjs/operators';
 
+
+import { Status } from './status';
+
+
 const httpOptions = {
     headers: new HttpHeaders({"ContentType": 'application/json' })
 
@@ -25,11 +29,11 @@ export class StatusAPIService {
       return this.http.get(apiListEndpoint)
   }
 
-  get(id?: number): Observable<any>{
+  get(id?: number): Observable<Status>{
       if (!id){
           id = 10
       }
       let apiDetailEndpoint = `${this.baseUrl}status/${id}/`
-      return this.http.get(apiDetailEndpoint)
+      return this.http.get<Status>(apiDetailEndpoint)
   }
 }

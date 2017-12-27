@@ -1,8 +1,10 @@
 <ul>
-    <li *ngFor='let obj of results'>
-        {{ obj.id }}
-        {{ obj.content }}
-        {{ obj.image }}
+    <li *ngFor='let statusItem of results'>
+       <div *ngIf='statusItem'>
+             <p>{{ statusItem.image }}</p>
+            <p>{{ statusItem.content }}</p>
+            <p>via <b>{{ statusItem.user.username }}</b></p>
+        </div>
 
     </li>
 

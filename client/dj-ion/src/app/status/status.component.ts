@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Status } from './status';
 
 import { StatusAPIService } from './status.service';
 
@@ -10,13 +11,13 @@ import { StatusAPIService } from './status.service';
   styleUrls: ['./status.component.css']
 })
 export class StatusComponent implements OnInit {
-    results = []
+    results:Status[] = []
   constructor(private statusAPI: StatusAPIService) { }
 
   ngOnInit() {
     this.statusAPI.list().subscribe(data=>{
-      console.log(data)
-      this.results = data.results
+      //console.log(data)
+      this.results = data.results // as [Status]
     })
   }
 
