@@ -20,9 +20,16 @@ export class StatusAPIService {
 
   constructor(private http: HttpClient){ }
 
-  list():Observable<any> {
+  list(): Observable<any>{
       let apiListEndpoint = `${this.baseUrl}status/` // http://127.0.0.1:8000/api/status/ 
       return this.http.get(apiListEndpoint)
   }
 
+  get(id?: number): Observable<any>{
+      if (!id){
+          id = 10
+      }
+      let apiDetailEndpoint = `${this.baseUrl}status/${id}/`
+      return this.http.get(apiDetailEndpoint)
+  }
 }

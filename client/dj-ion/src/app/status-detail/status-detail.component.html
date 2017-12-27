@@ -2,4 +2,9 @@
   {{ detailId }}
 </h1>
 
+<div *ngIf='statusItem'>
+    <p>{{ statusItem.content }}</p>
+    <p>via <b>{{ statusItem.user.username }}</b></p>
+</div>
+
 <button (click)='goBack()'>Back</button>
