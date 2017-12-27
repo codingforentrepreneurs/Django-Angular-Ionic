@@ -14,7 +14,10 @@ export class StatusComponent implements OnInit {
   constructor(private statusAPI: StatusAPIService) { }
 
   ngOnInit() {
-    this.results = this.statusAPI.list()
+    this.statusAPI.list().subscribe(data=>{
+      console.log(data)
+      this.results = data.results
+    })
   }
 
 }

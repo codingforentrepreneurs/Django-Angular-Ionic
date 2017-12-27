@@ -1,45 +1,28 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+
+import { Observable } from 'rxjs/Observable';
+import { of } from  'rxjs/observable/of';
+import { catchError, map, tap } from  'rxjs/operators';
+
+const httpOptions = {
+    headers: new HttpHeaders({"ContentType": 'application/json' })
+
+}
+
 
 @Injectable()
 export class StatusAPIService {
 
-  constructor() { }
+   private baseUrl = 'http://127.0.0.1:8000/api/'
 
-  list(){
-      return [
-      {
-            "uri": "http://127.0.0.1:8000/api/status/10/",
-            "id": 10,
-            "user": {
-                "id": 1,
-                "username": "cfe",
-                "uri": "http://127.0.0.1:8000/api/user/cfe/"
-            },
-            "content": "please delete me",
-            "image": "http://127.0.0.1:8000/media/status/cfe/logo_ndfWTYl.jpg"
-        },
-        {
-            "uri": "http://127.0.0.1:8000/api/status/10/",
-            "id": 10,
-            "user": {
-                "id": 1,
-                "username": "cfe",
-                "uri": "http://127.0.0.1:8000/api/user/cfe/"
-            },
-            "content": "please delete me",
-            "image": "http://127.0.0.1:8000/media/status/cfe/logo_ndfWTYl.jpg"
-        },
-        {
-            "uri": "http://127.0.0.1:8000/api/status/11/",
-            "id": 11,
-            "user": {
-                "id": 1,
-                "username": "cfe",
-                "uri": "http://127.0.0.1:8000/api/user/cfe/"
-            },
-            "content": "Some great new content!",
-            "image": null
-        }]
+
+  constructor(private http: HttpClient){ }
+
+  list():Observable<any> {
+      let apiListEndpoint = `${this.baseUrl}status/` // http://127.0.0.1:8000/api/status/ 
+      return this.http.get(apiListEndpoint)
   }
 
 }
