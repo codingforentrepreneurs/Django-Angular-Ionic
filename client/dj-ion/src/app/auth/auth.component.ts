@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-
-
 import { AuthLoginData } from './auth';
-import {AuthAPIService } from './auth.service';
+import { AuthAPIService } from './auth.service';
 import { User } from './user'
 
 @Component({
@@ -21,8 +17,6 @@ export class AuthComponent implements OnInit {
     tokenExists = false
   constructor(
     private authAPI: AuthAPIService,
-    private cookieService: CookieService,
-    private router: Router,
     ) { }
 
   ngOnInit() {
@@ -40,7 +34,7 @@ export class AuthComponent implements OnInit {
           'usernameField': this.usernameField,
           'passwordField': this.passwordField
       })
-      this.tokenExists = this.cookieService.check('jwttoken')
+      this.tokenExists = this.authAPI.checkToken()
 
     }
 
@@ -50,8 +44,7 @@ export class AuthComponent implements OnInit {
        this.userData = data as User
        let token = this.userData.token || null
        let date = new Date(data.expires)
-       this.cookieService.set('jwttoken', token, date, "/"); // set(keyName, value, expires, path)
-        this.router.navigate(['/'])
+       this.authAPI.performLogin(token, date)
       })
    }
 

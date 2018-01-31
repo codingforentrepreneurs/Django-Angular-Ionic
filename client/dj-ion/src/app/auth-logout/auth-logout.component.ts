@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { CookieService } from 'ngx-cookie-service';
-
-
+import {AuthAPIService } from '../auth/auth.service';
 @Component({
   selector: 'app-auth-logout',
   templateUrl: './auth-logout.component.html',
@@ -12,13 +8,11 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthLogoutComponent implements OnInit {
 
   constructor(
-      private cookieService: CookieService,
-      private router: Router,
+      private authAPI: AuthAPIService,
       ) { }
 
   ngOnInit() {
-      this.cookieService.delete('jwttoken', '/')
-      this.router.navigate(['/login'])
+      this.authAPI.performLogout("You have successfully logged out! Please login again.")
   }
 
 }

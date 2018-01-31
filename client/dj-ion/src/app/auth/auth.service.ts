@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from  'rxjs/observable/of';
@@ -16,7 +17,11 @@ export class AuthAPIService {
    private baseUrl = 'http://127.0.0.1:8000/api/'
 
 
-  constructor(private http: HttpClient){ }
+  constructor(
+    private cookieService: CookieService,
+    private http: HttpClient,
+    private router: Router,
+    ){ }
 
   createHeaders(token?:string){
     let data = {
@@ -29,6 +34,27 @@ export class AuthAPIService {
           headers: new HttpHeaders(data)
       }
      return httpOptions
+  }
+
+  checkToken(){
+    return this.cookieService.check("jwttoken")
+  }
+  getToken(){
+    return this.cookieService.get("jwttoken")
+  }
+  performLogout(msg?:string){
+    this.cookieService.delete('jwttoken', '/')
+    this.router.navigate(['/login'])
+    console.log(msg)
+  }
+  performLogin(token, expires?:Date, msg?:string){
+    let expiryDate = null 
+    if (expires){
+       expiryDate = expires
+    }
+     this.cookieService.set('jwttoken', token, expiryDate, "/"); // set(keyName, value, expires, path)
+     this.router.navigate(['/'])
+     console.log(msg)
   }
 
   login(data:AuthLoginData): Observable<any>{
