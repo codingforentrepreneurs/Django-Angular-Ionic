@@ -1,4 +1,5 @@
-<p *ngIf='authData'>
-    {{ authData.user }}
-    {{ authData.token }}
+<p *ngIf='userData'>
+    {{ userData.user }}
+    {{ userData.token }}<br/>
+    {{ userData.getUsername() }}<br/>
 </p>

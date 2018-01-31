@@ -1,11 +1,9 @@
+import { User } from '../auth/user';
+
 export class Status {
     uri: string;
     id: number;
-    user: {
-        id: number;
-        username: string;
-        uri: string;
-    };
+    user: User;
     content?: string;
     image?: string;
 }

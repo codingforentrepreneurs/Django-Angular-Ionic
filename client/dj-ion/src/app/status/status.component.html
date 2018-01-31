@@ -3,7 +3,9 @@
        <div *ngIf='statusItem'>
              <p>{{ statusItem.image }}</p>
             <p>{{ statusItem.content }}</p>
-            <p>via <b>{{ statusItem.user.username }}</b></p>
+            <p>via <b>{{ statusItem.user.username }}</b>
+                <span *ngIf='statusItem.user.id'>ID here</span>
+            </p>
         </div>
 
     </li>
