@@ -9,18 +9,19 @@ import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 })
 export class StatusCreateComponent implements OnInit {
     statusForm: FormGroup;
+    content: FormControl;
     // status  = {content: ''}
 
   constructor() { }
 
   ngOnInit() {
-      this.statusForm = new FormGroup({
-          'content': new FormControl("", [
+      this.content  = new FormControl("", [
                   Validators.required,
                   Validators.minLength(4),
                   Validators.maxLength(280)
              ])
-
+      this.statusForm = new FormGroup({
+          'content': this.content
       })
   }
 
@@ -35,8 +36,8 @@ export class StatusCreateComponent implements OnInit {
   }
       
 
-  get content(){
-      return this.statusForm.get("content")
-  }
+  // get content(){
+  //     return this.statusForm.get("content")
+  // }
 
 }

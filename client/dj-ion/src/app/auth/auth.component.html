@@ -3,3 +3,34 @@
     {{ userData.displayName }}
     {{ userData.token }}<br/><br/>
 </p>
+
+
+<form *ngIf='!userData' [formGroup]='loginForm' #ourLoginDir='ngForm' (submit)='handleSubmit($event, ourLoginDir, loginForm)'>
+     <input type='text' id='username' formControlName='usernameField'>
+    <div *ngIf='usernameField.invalid && (usernameField.dirty || usernameField.touched)'>
+        <div *ngIf='usernameField.errors.required'>
+            Password is required.
+        </div>
+        <div *ngIf='usernameField.errors.maxlength'>
+            Max length is 280
+        </div>
+        <div *ngIf='usernameField.errors.minlength'>
+            Min length is 4
+        </div>
+    </div>
+    <input type='password' id='password' formControlName='passwordField'>
+    <div *ngIf='passwordField.invalid && (passwordField.dirty || passwordField.touched)'>
+        <div *ngIf='passwordField.errors.required'>
+            Password is required.
+        </div>
+        <div *ngIf='passwordField.errors.maxlength'>
+            Max length is 280
+        </div>
+        <div *ngIf='passwordField.errors.minlength'>
+            Min length is 4
+        </div>
+    </div>
+    <button type='submit' class='btn btn-default' [disabled]='loginForm.invalid'>Submit</button>
+    <button type='button' class='btn btn-default' (click)='ourLoginDir.resetForm({})'>Reset</button>
+</form>
+
