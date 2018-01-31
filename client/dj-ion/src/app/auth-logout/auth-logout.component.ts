@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -10,11 +11,14 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AuthLogoutComponent implements OnInit {
 
-  constructor(private cookieService: CookieService) { }
+  constructor(
+      private cookieService: CookieService,
+      private router: Router,
+      ) { }
 
   ngOnInit() {
-      this.cookieService.delete('jwttoken')
-      // redirect to login?
+      this.cookieService.delete('jwttoken', '/')
+      this.router.navigate(['/login'])
   }
 
 }
