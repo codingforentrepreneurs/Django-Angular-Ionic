@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from  'rxjs/observable/of';
 import { catchError, map, tap } from  'rxjs/operators';
 
+import {AuthLoginData} from './auth';
 
 
 const httpOptions = {
@@ -21,7 +22,7 @@ export class AuthAPIService {
 
   constructor(private http: HttpClient){ }
 
-  login(data:any): Observable<any>{
+  login(data:AuthLoginData): Observable<any>{
       let apiLoginEndpoint = `${this.baseUrl}auth/` 
       return this.http.post(apiLoginEndpoint, data, httpOptions)
   }
