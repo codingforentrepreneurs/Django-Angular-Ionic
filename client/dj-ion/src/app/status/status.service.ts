@@ -10,10 +10,6 @@ import { catchError, map, tap } from  'rxjs/operators';
 import { Status } from './status';
 
 
-const httpOptions = {
-    headers: new HttpHeaders({"Content-Type": 'application/json' })
-
-}
 
 
 @Injectable()
@@ -23,6 +19,19 @@ export class StatusAPIService {
 
 
   constructor(private http: HttpClient){ }
+
+  createHeaders(token?:string){
+    let data = {
+         "Content-Type": 'application/json',
+    }
+    if (token){
+      data['Authorization'] = `JWT ${token}`
+    }
+     let httpOptions = {
+          headers: new HttpHeaders(data)
+      }
+     return httpOptions
+  }
 
   list(): Observable<any>{
       let apiListEndpoint = `${this.baseUrl}status/` // http://127.0.0.1:8000/api/status/ 
