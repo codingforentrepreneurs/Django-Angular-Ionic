@@ -19,17 +19,22 @@ User = get_user_model()
 
 class UserPublicSerializer(serializers.ModelSerializer):
     uri             = serializers.SerializerMethodField(read_only=True)
+    displayName     = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = User
         fields = [
             'id',
             'username',
-            'uri'
+            'uri',
+            'displayName',
         ]
 
     def get_uri(self, obj):
         request = self.context.get('request')
         return api_reverse("api-user:detail", kwargs={"username": obj.username}, request=request)
+    
+    def get_displayName(self, obj):
+        return obj.username
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
@@ -37,17 +42,21 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     token               = serializers.SerializerMethodField(read_only=True)
     expires             = serializers.SerializerMethodField(read_only=True)
     message             = serializers.SerializerMethodField(read_only=True)
+    uri                 = serializers.SerializerMethodField(read_only=True)
+    displayName         = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = User
         fields = [
+            'id',
             'username',
             'email',
             'password',
             'password2',
             'token',
             'expires',
-
+            'uri',
             'message',
+            'displayName',
 
         ]
         extra_kwargs = {'password': {'write_only': True}}
@@ -76,12 +85,20 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         token = jwt_encode_handler(payload)
         return token
 
+
+    def get_uri(self, obj):
+        request = self.context.get('request')
+        return api_reverse("api-user:detail", kwargs={"username": obj.username}, request=request)
+
     def validate(self, data):
         pw  = data.get('password')
         pw2 = data.pop('password2')
         if pw != pw2:
             raise serializers.ValidationError("Passwords must match")
         return data
+
+    def get_displayName(self, obj):
+        return obj.username
 
     def create(self, validated_data):  
         #print(validated_data)

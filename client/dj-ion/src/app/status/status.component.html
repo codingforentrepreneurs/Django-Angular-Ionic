@@ -3,8 +3,8 @@
        <div *ngIf='statusItem'>
              <p>{{ statusItem.image }}</p>
             <p>{{ statusItem.content }}</p>
-            <p>via <b>{{ statusItem.user.username }}</b>
-                <span *ngIf='statusItem.user.id'>ID here</span>
+            <p>via <b><a href='#' data-id='{{statusItem.user.id }}'>{{ statusItem.user.username }}</a></b>
+            
             </p>
         </div>
 

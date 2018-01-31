@@ -1,13 +1,9 @@
 export class User {
+    id: number;
+    username: string;
+    displayName: string;
+    uri: string;
     token?: string;
-    user?: string;
     expires?: string; // convert to timestamp
-    id?: number;
-    username?: string;
-    uri?: string;
-
-    public getUsername(){
-        return this.username || this.user || "unknown"
-    }
 }
 

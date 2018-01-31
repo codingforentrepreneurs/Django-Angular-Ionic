@@ -22,13 +22,7 @@ export class AuthComponent implements OnInit {
     }
    doLogin(data){
      this.authAPI.login(data).subscribe(data=>{
-       let newUser = new User()
-       newUser.username = data['user']
-       newUser.token = data['token']
-       newUser.id = 123
-       this.userData = newUser
-       //this.userData = data as User
-       // this.username = new User().getUsername()
+       this.userData = data as User
       })
  }
 }
