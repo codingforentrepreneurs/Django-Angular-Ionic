@@ -10,14 +10,16 @@ import { StatusComponent } from './status/status.component';
 import { StatusAPIService } from './status/status.service';
 import { StatusDetailComponent } from './status-detail/status-detail.component';
 import { StatusCreateComponent } from './status-create/status-create.component';
-
+import { AuthComponent } from './auth/auth.component';
+import { AuthAPIService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     StatusComponent,
     StatusDetailComponent,
-    StatusCreateComponent
+    StatusCreateComponent,
+    AuthComponent
   ],
   imports: [
     AppRoutingModule,
@@ -27,6 +29,7 @@ import { StatusCreateComponent } from './status-create/status-create.component';
     ReactiveFormsModule
   ],
   providers: [
+    AuthAPIService,
     StatusAPIService,
   ],
   bootstrap: [AppComponent]
