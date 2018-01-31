@@ -69,3 +69,14 @@ Full Course is here: [http://joincfe.com/courses/django-angular-ionic](https://w
 
 [18 - Login Form](../../tree/bfb97000ffe1e0b5857a51b22e280cc35ffc6f9e/)
 
+[19 - Using a JWT Token in HttpClient](../../tree/9ce0a01694e81593520202924f249ee755b0fb3e/)
+
+[20 - Token HttpInterceptor](../../tree/598c4fc55a49f67f360cc97600993707639a5eb3/)
+
+[21- ngx cookie service](../../tree/5de21b1146bfe85b439add5727720a11bf752e1a/)
+
+[22 - Auth Logout Component](../../tree/fb8c0612e63296f98e5e29dff3071fff3c5b5f83/)
+
+[23 - Advanced Cookies & Routing](../../tree/ab2bb341427a826af2e0c6be792f6317dca7fc4b/)
+
+[24 - Upgrading the Auth API Service](../../tree/262a9fd79ffc4c9d2d2ebd7c82282b410ab24335/)
