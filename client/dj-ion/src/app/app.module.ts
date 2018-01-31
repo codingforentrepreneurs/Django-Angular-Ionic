@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-// import { CookieService } from 'ngx-cookie-service';
+
+
+//Third party 
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -38,7 +41,7 @@ import { TokenInterceptor } from './auth/token.interceptor';
   ],
   providers: [
     AuthAPIService,
-    // CookieService,
+    CookieService,
     StatusAPIService,
     {
         provide: HTTP_INTERCEPTORS,

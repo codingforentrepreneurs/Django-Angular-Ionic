@@ -10,25 +10,28 @@ import {
 
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
-// import { CookieService } from 'ngx-cookie-service'; //
+import { CookieService } from 'ngx-cookie-service'; //
 
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
-    // private cookieService: CookieService
+    private cookieService: CookieService
     ) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // let csrftoken = this.cookieService.get('csrftoken')
-    // let jwttoken = this.cookieService.get('jwttoken')
-    let jwttoken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImNmZSIsImV4cCI6MTUxNzQzMjQwNSwiZW1haWwiOiJoZWxsb0B0ZWFtY2ZlLmNvbSIsIm9yaWdfaWF0IjoxNTE3NDMyMTA1fQ.ZHYKdNeDW1kdrgpOjNdKv7OFnhN03zWirKryl25Joto'
-    request = request.clone({
-      setHeaders: {
-        // This is where you can use your various tokens
-        Authorization: `JWT ${jwttoken}`,
-        // 'X-CSRFToken': `${csrftoken}`
-      }
-    });
+    let jwttoken = this.cookieService.get('jwttoken')
+    // let jwttoken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImNmZSIsImV4cCI6MTUxNzQzMjQwNSwiZW1haWwiOiJoZWxsb0B0ZWFtY2ZlLmNvbSIsIm9yaWdfaWF0IjoxNTE3NDMyMTA1fQ.ZHYKdNeDW1kdrgpOjNdKv7OFnhN03zWirKryl25Joto'
+    if (jwttoken){
+      request = request.clone({
+        setHeaders: {
+          // This is where you can use your various tokens
+          Authorization: `JWT ${jwttoken}`,
+          // 'X-CSRFToken': `${csrftoken}`
+        }
+      });
+    }
+     
     return next.handle(request).do((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
         // do stuff with response if you want

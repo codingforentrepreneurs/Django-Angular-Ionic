@@ -4,7 +4,6 @@
     {{ userData.token }}<br/><br/>
 </p>
 
-
 <form *ngIf='!userData' [formGroup]='loginForm' #ourLoginDir='ngForm' (submit)='handleSubmit($event, ourLoginDir, loginForm)'>
      <input type='text' id='username' formControlName='usernameField'>
     <div *ngIf='usernameField.invalid && (usernameField.dirty || usernameField.touched)'>

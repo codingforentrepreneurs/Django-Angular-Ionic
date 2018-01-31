@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 
+import { CookieService } from 'ngx-cookie-service';
+
+
 import { AuthLoginData } from './auth';
 import {AuthAPIService } from './auth.service';
 import { User } from './user'
@@ -15,7 +18,10 @@ export class AuthComponent implements OnInit {
     loginForm: FormGroup;
     usernameField: FormControl;
     passwordField: FormControl
-  constructor(private authAPI: AuthAPIService) { }
+  constructor(
+    private authAPI: AuthAPIService,
+    private cookieService: CookieService
+    ) { }
 
   ngOnInit() {
       this.usernameField  = new FormControl("", [
@@ -40,6 +46,8 @@ export class AuthComponent implements OnInit {
    doLogin(data){
      this.authAPI.login(data).subscribe(data=>{
        this.userData = data as User
+       let token = this.userData.token || null
+       this.cookieService.set('jwttoken', token );
       })
    }
 
