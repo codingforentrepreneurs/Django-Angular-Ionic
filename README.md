@@ -59,4 +59,13 @@ Full Course is here: [http://joincfe.com/courses/django-angular-ionic](https://w
 
 [13 - Angular Status Model](../../tree/a9dc34a734a90fa58f3d0b77dc11759e73a01821/)
 
+[14 - Auth Component & Service](../../tree/49aa9f8c49c7aa3092f4f48219ccebd121a03dbf/)
+
+[15 - Auth Login Object](../../tree/c41fc32d34a16f6203088cae01ebcf6c973f0e66/)
+
+[16 - User object model](../../tree/acd75977aa73406b9e095beebce5039e2e181ee3/)
+
+[17 - Backend Upgrades for Uniformity](../../tree/5a21814cacde039df785ecca2c25112a94a7a83f/)
+
+[18 - Login Form](../../tree/bfb97000ffe1e0b5857a51b22e280cc35ffc6f9e/)
 
