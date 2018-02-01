@@ -1,9 +1,9 @@
 <ul>
     <li *ngFor='let statusItem of results'>
-       <div *ngIf='statusItem'>
-             <p>{{ statusItem.image }}</p>
-            <p>{{ statusItem.content }}</p>
-            <p>via <b><a href='#' data-id='{{statusItem.user.id }}'>{{ statusItem.user.username }}</a></b>
+       <div *ngIf='statusItem && (statusItem.image || statusItem.content)'>
+             <p *ngIf='statusItem.image'><a [routerLink]='["/status", statusItem.id]'>{{ statusItem.image }}</a></p>
+            <p *ngIf='statusItem.content'><a [routerLink]='["/status", statusItem.id]'>{{ statusItem.content }}</a></p>
+            <p>via <b><a href='#' data-id='{{ statusItem.user.id }}'>{{ statusItem.user.username }}</a></b>
             
             </p>
         </div>
