@@ -1,5 +1,40 @@
 <span *ngIf='errorMsg'>{{ errorMsg }}</span>
 <form [formGroup]='statusForm' #statusDir='ngForm' (submit)='handleSubmit($event, statusDir, statusForm)'>
+
+    <div class="form-group">
+        <label for="file">Choose Image</label>
+            <input #myImageInput type="file"
+                   id="file"
+                   accept='image/*, video/*'
+                   (change)="handleFileInput($event.target.files)">
+    </div>
+
+    <textarea id='content' name='content' formControlName='content'></textarea>
+
+    <div *ngIf='content.invalid && (content.dirty || content.touched)'>
+        <div *ngIf='content.errors.maxlength'>
+            Max length is 280
+        </div>
+        <div *ngIf='content.errors.minlength'>
+            Min length is 4
+        </div>
+    </div>
+
+
+    <button type='submit' class='btn btn-default' [disabled]='statusForm.invalid'>Submit</button>
+    <button type='button' class='btn btn-default' (click)='statusDir.resetForm({})'>Reset</button>
+</form>
+
+
+Progress: 
+<div style='width:%;background-color:#007cae;'>
+    <span *ngIf='uploadProgress > 25 && uploadProgress < 100'>{{ uploadProgress }}%</span>
+    <span *ngIf='uploadProgress == 100'>Done</span>
+</div>
+<!-- 
+
+
+<form [formGroup]='statusForm' #statusDir='ngForm' (submit)='handleSubmit($event, statusDir, statusForm)'>
     <textarea id='content' name='content' formControlName='content'></textarea>
         
     <div *ngIf='content.invalid && (content.dirty || content.touched)'>
@@ -15,4 +50,4 @@
     </div>
     <button type='submit' class='btn btn-default' [disabled]='statusForm.invalid'>Submit</button>
     <button type='button' class='btn btn-default' (click)='statusDir.resetForm({})'>Reset</button>
-</form>
+</form> -->

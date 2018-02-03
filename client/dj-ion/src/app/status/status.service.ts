@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+
 
 
 import { Observable } from 'rxjs/Observable';
@@ -37,6 +38,34 @@ export class StatusAPIService {
       let apiListEndpoint = `${this.baseUrl}status/?ordering=-timestamp` // http://127.0.0.1:8000/api/status/ 
       return this.http.get(apiListEndpoint)
   }
+
+  createAndUpload(fileItem?:File, extraData?:object):any{
+      let apiListEndpoint = `${this.baseUrl}status/`
+      const formData: FormData = new FormData(); //?
+       let fileName;
+      if (extraData) {
+        for(let key in extraData){
+            // iterate and set other form data
+            if (key == 'fileName'){
+              fileName = extraData[key]
+            }
+          formData.append(key, extraData[key])
+        }
+      }
+
+      if (fileItem){
+        if (!fileName){
+           fileName = fileItem.name
+        }
+        formData.append('image', fileItem, fileName);
+      }
+
+      const req = new HttpRequest('POST', apiListEndpoint, formData, {
+        reportProgress: true // for progress data
+      });
+      return this.http.request(req)
+  }
+
 
   create(content?:string, image?:any): Observable<any>{
       let apiListEndpoint = `${this.baseUrl}status/` // http://127.0.0.1:8000/api/status/ 
