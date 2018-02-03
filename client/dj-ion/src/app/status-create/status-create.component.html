@@ -1,3 +1,4 @@
+<span *ngIf='errorMsg'>{{ errorMsg }}</span>
 <form [formGroup]='statusForm' #statusDir='ngForm' (submit)='handleSubmit($event, statusDir, statusForm)'>
     <textarea id='content' name='content' formControlName='content'></textarea>
         
