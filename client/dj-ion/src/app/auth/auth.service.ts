@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 import { Observable } from 'rxjs/Observable';
@@ -15,12 +15,13 @@ import {AuthLoginData} from './auth';
 @Injectable()
 export class AuthAPIService {
    private baseUrl = 'http://127.0.0.1:8000/api/'
-
+   private nextUrl;
 
   constructor(
     private cookieService: CookieService,
     private http: HttpClient,
     private router: Router,
+    private route: ActivatedRoute,
     ){ }
 
   createHeaders(token?:string){
@@ -45,16 +46,39 @@ export class AuthAPIService {
   performLogout(msg?:string){
     this.cookieService.delete('jwttoken', '/')
     this.router.navigate(['/login'])
-    console.log(msg)
+    // console.log(msg)
   }
+
+  getNextUrl(){
+    this.route.queryParams.subscribe(params=>{
+        if (params['next']){
+            this.nextUrl = params['next']
+            switch (this.nextUrl) {
+              case "/account/delete":
+                this.nextUrl = null
+                break;
+              
+              default:
+                // code...
+                break;
+            }
+        }
+    })
+    return this.nextUrl
+  }
+
   performLogin(token, expires?:Date, msg?:string){
     let expiryDate = null 
     if (expires){
        expiryDate = expires
     }
      this.cookieService.set('jwttoken', token, expiryDate, "/"); // set(keyName, value, expires, path)
-     this.router.navigate(['/'])
-     console.log(msg)
+     const nextUrl = this.getNextUrl()
+     if (nextUrl){
+       this.router.navigate([nextUrl])
+     } else {
+       this.router.navigate(['/'])
+     }
   }
 
   login(data:AuthLoginData): Observable<any>{

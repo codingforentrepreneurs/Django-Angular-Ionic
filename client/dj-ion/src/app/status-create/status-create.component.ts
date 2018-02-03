@@ -43,12 +43,12 @@ export class StatusCreateComponent implements OnInit {
               this.newStatus = data as Status
               // this.router.navigate([`/status/${this.newStatus.id}`])
               this.router.navigate(["/status", this.newStatus.id]) // /status/1
-          }, error=> {
-              console.log(error)
-              let statusCode = error.status
+          }, errorResponse=> {
+              let statusCode = errorResponse.status
               switch (statusCode) {
                 case 401: // http status codes
                   this.errorMsg = "Authentication Error. (401 Error)"
+                  this.errorMsg = errorResponse['error']['detail']
                   break;
                 case 403:
                   this.errorMsg = "Authentication Error. (403 Error)"

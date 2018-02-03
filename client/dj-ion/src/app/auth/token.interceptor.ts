@@ -7,6 +7,7 @@ import {
   HttpResponse,
   HttpErrorResponse
 } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
@@ -16,7 +17,8 @@ import { CookieService } from 'ngx-cookie-service'; //
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
-    private cookieService: CookieService
+    private cookieService: CookieService;
+    private router: Router
     ) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // let csrftoken = this.cookieService.get('csrftoken')
@@ -40,8 +42,13 @@ export class TokenInterceptor implements HttpInterceptor {
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401 || err.status === 403) {
-          console.log("error occurred")
-
+          const currentUrl = this.router.url
+          if (currentUrl != '/login') {
+            alert("Session ended. Please login again")
+            this.cookieService.delete('jwttoken')
+            this.router.navigate(['/login'], {queryParams: {next: currentUrl}}) 
+          }
+          // /login?next=/status/create
         }
       }
     });

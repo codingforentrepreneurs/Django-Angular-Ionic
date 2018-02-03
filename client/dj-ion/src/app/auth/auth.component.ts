@@ -14,7 +14,9 @@ export class AuthComponent implements OnInit {
     loginForm: FormGroup;
     usernameField: FormControl;
     passwordField: FormControl;
+    loginErrors: any;
     tokenExists = false
+    didLogin = false;
   constructor(
     private authAPI: AuthAPIService,
     ) { }
@@ -45,13 +47,15 @@ export class AuthComponent implements OnInit {
        let token = this.userData.token || null
        let date = new Date(data.expires)
        this.authAPI.performLogin(token, date)
+       this.didLogin = true
+      }, error=>{
+        this.loginErrors = error['error']['detail']
       })
    }
 
    handleSubmit(event:any, ourLoginDir:NgForm, loginFormGroup:FormGroup){
       event.preventDefault()
       if (ourLoginDir.submitted){
-          console.log(loginFormGroup.value)
           // interact with the server
           let authLoginData = new AuthLoginData(
               loginFormGroup.value['usernameField'], 
