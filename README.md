@@ -87,3 +87,5 @@ Full Course is here: [http://joincfe.com/courses/django-angular-ionic](https://w
 
 [27 & 28 - Handle Auth Token Errors Part 1 & 2](../../tree/e75a12e6ad437807b4411b1f7ef6e61b7d0f4fc1/)
 
+[29 - Image File Upload](../../tree/05f3182ffcf3b9b41f5c548b32c4b55b97f9af3d/)
+
