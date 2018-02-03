@@ -80,3 +80,10 @@ Full Course is here: [http://joincfe.com/courses/django-angular-ionic](https://w
 [23 - Advanced Cookies & Routing](../../tree/ab2bb341427a826af2e0c6be792f6317dca7fc4b/)
 
 [24 - Upgrading the Auth API Service](../../tree/262a9fd79ffc4c9d2d2ebd7c82282b410ab24335/)
+
+[25 - Http Client Part 3 - Create](../../tree/7f52d10e65e1d6a9dfd7dfa69d46d5cedbd0e30f/)
+
+[26 - Display API Service Errors](../../tree/0476f116719fafeabc93292bfb3f64e9194e0364/)
+
+[27 & 28 - Handle Auth Token Errors Part 1 & 2](../../tree/e75a12e6ad437807b4411b1f7ef6e61b7d0f4fc1/)
+
