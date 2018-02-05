@@ -8,4 +8,7 @@
     <p>via <b>{{ statusItem.user.username }}</b></p>
 </div>
 
+<status-update [statusId]='statusItem.id' *ngIf='statusItem'></status-update>
+
+
 <button (click)='goBack()'>Back</button>

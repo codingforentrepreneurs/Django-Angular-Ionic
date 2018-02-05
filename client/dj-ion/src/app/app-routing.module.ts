@@ -13,6 +13,7 @@ const routes: Routes = [
     {path: 'logout', component: AuthLogoutComponent},
     {path: 'status/create', component: StatusCreateComponent},
     {path: 'status/:id', component: StatusDetailComponent},
+    {path: 'status/:id/update', redirectTo: '/status', pathMatch: 'full'},
     {path: 'status', component: StatusComponent}
 ];
 

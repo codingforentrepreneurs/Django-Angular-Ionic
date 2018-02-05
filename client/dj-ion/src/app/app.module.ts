@@ -22,6 +22,8 @@ import { StatusComponent } from './status/status.component';
 import { StatusAPIService } from './status/status.service';
 import { StatusDetailComponent } from './status-detail/status-detail.component';
 import { StatusCreateComponent } from './status-create/status-create.component';
+import { StatusUpdateComponent } from './status-update/status-update.component';
+
 import { TokenInterceptor } from './auth/token.interceptor';
 
 @NgModule({
@@ -32,6 +34,7 @@ import { TokenInterceptor } from './auth/token.interceptor';
     StatusCreateComponent,
     AuthComponent,
     AuthLogoutComponent,
+    StatusUpdateComponent,
     
   ],
   imports: [
