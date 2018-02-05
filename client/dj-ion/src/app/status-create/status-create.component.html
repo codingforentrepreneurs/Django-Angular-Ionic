@@ -1,15 +1,32 @@
 <span *ngIf='errorMsg'>{{ errorMsg }}</span>
 <form [formGroup]='statusForm' #statusDir='ngForm' (submit)='handleSubmit($event, statusDir, statusForm)'>
 
-    <div class="form-group">
-        <label for="file">Choose Image</label>
-            <input #myImageInput type="file"
-                   id="file"
-                   accept='image/*, video/*'
+    <div class="form-group image-upload-group" style=''>
+        <label for="image">Choose Image</label>
+            <input #myFileInput type="file"
+                   id="image"
+                   accept='image/*,'
                    (change)="handleFileInput($event.target.files)">
     </div>
 
-    <textarea id='content' name='content' formControlName='content'></textarea>
+
+    <a href='#' (click)='callFileInput($event)'>Select File
+
+        <span *ngIf='newFileName'>{{ newFileName }}</span>
+    </a>
+
+    <br/>
+
+    <textarea #myTextArea id='content' name='content' formControlName='content'
+        (change)='textAreaChanged()'
+        (click)='textAreaClicked()'
+        (keyup)='textAreaKeyup()'
+    ></textarea>
+    <p *ngIf='myTextArea.value'>{{ myTextArea.value }}
+
+        <br/>
+            <a href='#' (click)='clearMyTextArea($event)'>Clear</a>
+    </p>
 
     <div *ngIf='content.invalid && (content.dirty || content.touched)'>
         <div *ngIf='content.errors.maxlength'>
@@ -22,7 +39,7 @@
 
 
     <button type='submit' class='btn btn-default' [disabled]='statusForm.invalid'>Submit</button>
-    <button type='button' class='btn btn-default' (click)='statusDir.resetForm({})'>Reset</button>
+    <button type='button' class='btn btn-default' (click)='statusDir.resetForm({});resetFileInput()'>Reset</button>
 </form>
 
 

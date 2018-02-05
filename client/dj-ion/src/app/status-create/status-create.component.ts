@@ -23,9 +23,13 @@ export class StatusCreateComponent implements OnInit {
     uploadComplete:boolean = false;
     uploadingProgressing:boolean = false;
     serverResponse: any;
+    newFileName: string;
 
-    @ViewChild('myInput')
+    @ViewChild('myFileInput')
     myImageInput: any;
+
+    @ViewChild('myTextArea')
+    myContentText:any;
 
 
     // status  = {content: ''}
@@ -43,8 +47,30 @@ export class StatusCreateComponent implements OnInit {
       this.statusForm = new FormGroup({
           'content': this.content
       })
+
+      // console.log(this.myContentText.value)
   }
 
+  textAreaChanged(){
+    console.log("Changed")
+  }
+  textAreaClicked(){
+    console.log("clicked")
+  }
+  textAreaKeyup(){
+    console.log(this.myContentText.nativeElement.value)
+  }
+
+  clearMyTextArea(event){
+    event.preventDefault()
+    this.myContentText.nativeElement.value = ""
+  }
+
+  callFileInput(event){
+    console.log("trigger file input")
+    event.preventDefault()
+    this.myImageInput.nativeElement.click()
+  }
 
    handleProgress(event){
     if (event.type === HttpEventType.DownloadProgress) {
@@ -93,11 +119,15 @@ export class StatusCreateComponent implements OnInit {
    handleFileInput(files: FileList) {
         let fileItem = files.item(0);
         console.log("file input has changed. The file is", fileItem)
-        this.imageToUpload = fileItem
+        if (fileItem){
+          this.newFileName = fileItem.name
+          this.imageToUpload = fileItem
+        }
     }
 
     resetFileInput() {
         console.log(this.myImageInput.nativeElement.files);
+        this.newFileName = null;
         this.myImageInput.nativeElement.value = "";
         console.log(this.myImageInput.nativeElement.files);
     }
