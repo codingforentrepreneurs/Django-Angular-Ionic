@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpEventType, HttpRequest, HttpErrorResponse, HttpEvent } from '@angular/common/http';
@@ -11,7 +11,7 @@ import { StatusAPIService } from '../status/status.service';
   templateUrl: './status-create.component.html',
   styleUrls: ['./status-create.component.css']
 })
-export class StatusCreateComponent implements OnInit {
+export class StatusCreateComponent implements OnInit, OnDestroy{
     newStatus: Status;
     statusForm: FormGroup;
     content: FormControl;
@@ -49,6 +49,11 @@ export class StatusCreateComponent implements OnInit {
       })
 
       // console.log(this.myContentText.value)
+  }
+  ngOnDestroy(){
+    if(this.statusCreateSub){
+      this.statusCreateSub.unsubscribe()
+    }
   }
 
   textAreaChanged(){

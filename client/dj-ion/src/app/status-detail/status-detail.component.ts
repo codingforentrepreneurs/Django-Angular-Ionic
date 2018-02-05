@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
  
@@ -10,9 +10,11 @@ import { StatusAPIService } from '../status/status.service';
   templateUrl: './status-detail.component.html',
   styleUrls: ['./status-detail.component.css']
 })
-export class StatusDetailComponent implements OnInit {
+export class StatusDetailComponent implements OnInit, OnDestroy{
    detailId: any;
    statusItem: Status;
+   statusDetailSub: any;
+
   constructor(
       private statusAPI: StatusAPIService,
       private location: Location,
@@ -26,13 +28,15 @@ export class StatusDetailComponent implements OnInit {
           alert("Hey not a valid route")
           this.goBack()
       } else {
-        this.statusAPI.get(number).subscribe(data=>{
+        this.statusDetailSub = this.statusAPI.get(number).subscribe(data=>{
           this.statusItem = data
         })
       }
-
-
-
+  }
+  ngOnDestroy(){
+    if (this.statusDetailSub){
+      this.statusDetailSub.unsubscribe()
+    }
   }
 
   goBack(){

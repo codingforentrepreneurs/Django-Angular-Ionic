@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { AuthLoginData } from './auth';
 import { AuthAPIService } from './auth.service';
@@ -9,11 +9,12 @@ import { User } from './user'
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
     userData:User;
     loginForm: FormGroup;
     usernameField: FormControl;
     passwordField: FormControl;
+    authLoginSub: any;
     loginErrors: any;
     tokenExists = false
     didLogin = false;
@@ -42,7 +43,7 @@ export class AuthComponent implements OnInit {
 
 
    doLogin(data){
-     this.authAPI.login(data).subscribe(data=>{
+     this.authLoginSub = this.authAPI.login(data).subscribe(data=>{
        this.userData = data as User
        let token = this.userData.token || null
        let date = new Date(data.expires)
@@ -52,6 +53,12 @@ export class AuthComponent implements OnInit {
         this.loginErrors = error['error']['detail']
       })
    }
+
+   ngOnDestroy(){
+    if (this.authLoginSub){
+      this.authLoginSub.unsubscribe()
+    }
+  }
 
    handleSubmit(event:any, ourLoginDir:NgForm, loginFormGroup:FormGroup){
       event.preventDefault()
