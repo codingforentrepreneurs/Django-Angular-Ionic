@@ -89,3 +89,6 @@ Full Course is here: [http://joincfe.com/courses/django-angular-ionic](https://w
 
 [29 - Image File Upload](../../tree/05f3182ffcf3b9b41f5c548b32c4b55b97f9af3d/)
 
+[30 - View Child Decoractor and Input Change + KeyUp + Click](../../tree/85246ec8bc18b6623c07ad71ab552af93e0637f2/)
+
+[31 - Unsubscribe from Observables](../../tree/7331076d0ad3708143fac85b10f78b10afbb50a2/)
