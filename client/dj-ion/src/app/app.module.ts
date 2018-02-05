@@ -24,8 +24,6 @@ import { StatusDetailComponent } from './status-detail/status-detail.component';
 import { StatusCreateComponent } from './status-create/status-create.component';
 import { TokenInterceptor } from './auth/token.interceptor';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +31,8 @@ import { TokenInterceptor } from './auth/token.interceptor';
     StatusDetailComponent,
     StatusCreateComponent,
     AuthComponent,
-    AuthLogoutComponent
+    AuthLogoutComponent,
+    
   ],
   imports: [
     AppRoutingModule,
