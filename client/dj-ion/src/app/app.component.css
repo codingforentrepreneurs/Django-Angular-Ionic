@@ -1,0 +1,9 @@
+.img-max{
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.img-detail-max {
+    max-height: 800px;
+    max-width: 800px;
+}

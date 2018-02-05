@@ -1,7 +1,7 @@
 <ul>
     <li *ngFor='let statusItem of results'>
        <div *ngIf='statusItem && (statusItem.image || statusItem.content)'>
-             <p *ngIf='statusItem.image'><a [routerLink]='["/status", statusItem.id]'>{{ statusItem.image }}</a></p>
+             <p *ngIf='statusItem.image'><a [routerLink]='["/status", statusItem.id]'><img class='img-max' [src]='statusItem.image' /></a></p>
             <p *ngIf='statusItem.content'><a [routerLink]='["/status", statusItem.id]'>{{ statusItem.content }}</a></p>
             <p>via <b><a href='#' data-id='{{ statusItem.user.id }}'>{{ statusItem.user.username }}</a></b>
             

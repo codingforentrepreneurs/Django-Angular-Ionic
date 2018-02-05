@@ -3,6 +3,7 @@
 </h1>
 
 <div *ngIf='statusItem'>
+    <p *ngIf='statusItem.image'><img class='img-detail-max' [src]='statusItem.image' /></p>
     <p>{{ statusItem.content }}</p>
     <p>via <b>{{ statusItem.user.username }}</b></p>
 </div>
