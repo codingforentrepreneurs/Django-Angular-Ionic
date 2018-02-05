@@ -43,5 +43,16 @@ export class StatusDetailComponent implements OnInit, OnDestroy{
       this.location.back()
   }
 
+  handleUpdate(event){
+      // Handles event emitter for the Status Update component
+      // console.log(event)
+       console.log("Counts are", event.count, "Status ID is", event.status)
+
+  }
+
+  statusDidUpdate(event){
+    console.log("status is", event)
+  }
+
 
 }

@@ -6,7 +6,14 @@
             <p>via <b><a href='#' data-id='{{ statusItem.user.id }}'>{{ statusItem.user.username }}</a></b>
             
             </p>
+
+
+            <status-update [statusId]='statusItem.id' (didUpdate)='statusDidUpdate($event)'  *ngIf='statusItem'></status-update>
+
+
         </div>
+
+
 
     </li>
 
