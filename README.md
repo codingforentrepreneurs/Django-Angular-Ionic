@@ -92,3 +92,14 @@ Full Course is here: [http://joincfe.com/courses/django-angular-ionic](https://w
 [30 - View Child Decoractor and Input Change + KeyUp + Click](../../tree/85246ec8bc18b6623c07ad71ab552af93e0637f2/)
 
 [31 - Unsubscribe from Observables](../../tree/7331076d0ad3708143fac85b10f78b10afbb50a2/)
+
+[32 - Render Uploaded Images in Django & Angular](../../tree/76f557c5d25d2ee181721e275f42b01d204a8b75/)
+
+[33 - Angular Project Global Styles](../../tree/0458c471b7896eb229c2f3edd5d86fdd36646fc9/)
+
+[34 - Bootstrap a Custom App Module](../../tree/05d81431f49f1d47b727d4878e087d31ccb9462e/)
+
+[35 - Custom Selector with Input Decorator](../../tree/dff9aa23924dda5c9454932ac70ace671846dfa4/)
+
+[36 - Output and EventEmitter](../../tree/b5677aa3a8f9d6e99bd21c78e629315e8143cc88/)
+
