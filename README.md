@@ -103,3 +103,10 @@ Full Course is here: [http://joincfe.com/courses/django-angular-ionic](https://w
 
 [36 - Output and EventEmitter](../../tree/b5677aa3a8f9d6e99bd21c78e629315e8143cc88/)
 
+[37 - Update the Status Object](../../tree/5b7b3ed6603bd6a5c346376eff103a4ebbf19714/)
+
+[38 - Update Form](../../tree/879f7a1f9f42ae1adc27ae9d1f8864033b678119/)
+
+[39 - Replace Item in Array](../../tree/aeec0840c4ca881a25d570daa56d8802b2baf907/)
+
+[40 - Ownership Verification](../../tree/ae954008c059519c434c25eb4bb529f37b5cce24/)
