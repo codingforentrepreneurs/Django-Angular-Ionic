@@ -1,5 +1,5 @@
 import { Component, EventEmitter,  OnInit, OnDestroy, Input, Output} from '@angular/core';
-
+import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 
 import { Status } from '../status/status';
 import { StatusAPIService } from '../status/status.service';
@@ -10,11 +10,12 @@ import { StatusAPIService } from '../status/status.service';
   styleUrls: ['./status-update.component.css']
 })
 export class StatusUpdateComponent implements OnInit, OnDestroy {
-    @Input() statusId: number;
+    statusForm: FormGroup;
+    content: FormControl;
+    viewEditForm:boolean = false;
+    statusDir: NgForm;
     @Input() statusItem: Status;
     count = 0
-
-    @Output() didUpdate = new EventEmitter();
     @Output() statusUpdated = new EventEmitter<Status>();
     statusUpdateSub: any;
 
@@ -24,6 +25,17 @@ export class StatusUpdateComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
       // console.log(this.statusId)
+      if (this.statusItem){
+
+
+      this.content  = new FormControl(this.statusItem.content, [
+                  Validators.minLength(4),
+                  Validators.maxLength(280)
+             ])
+      this.statusForm = new FormGroup({
+          'content': this.content
+      })
+       }
   }
 
   ngOnDestroy(){
@@ -32,16 +44,17 @@ export class StatusUpdateComponent implements OnInit, OnDestroy {
     }
   }
 
-  buttonPressed(event){
-      this.count = this.count + 1
-      this.didUpdate.emit({count: this.count, status:this.statusId})
-      // console.log(this.statusItem)
-      if (this.statusItem){
+  handleSubmit(event:any, statusDir:NgForm, statusForm:FormGroup){
+      event.preventDefault()
+      this.statusDir = statusDir
+      if (statusDir.submitted){
+          let submittedData = statusForm.value
+
           let newStatusItem = new Status()
           newStatusItem.id = this.statusItem.id
-          newStatusItem.content = "A whole other thing"
+          newStatusItem.content = statusForm.value.content
           newStatusItem.image = null;
-          // no image
+
           this.statusUpdateSub = this.statusAPI.update(
             newStatusItem
            ).subscribe(data=>{
@@ -50,6 +63,25 @@ export class StatusUpdateComponent implements OnInit, OnDestroy {
            }, error=>{
              console.log(error)
            })
+
+           this.toggleFormView()
+      }
+  }
+
+
+  toggleFormView(){
+    this.viewEditForm = !this.viewEditForm
+  }
+
+  buttonPressed(event){
+      this.toggleFormView()
+      this.count = this.count + 1
+      // this.didUpdate.emit({count: this.count, status:this.statusId})
+      // console.log(this.statusItem)
+      if (this.statusItem){
+          
+          // no image
+          
           
       }
       

@@ -1,4 +1,4 @@
-<ul>
+ <ul>
     <li *ngFor='let statusItem of results'>
        <div *ngIf='statusItem && (statusItem.image || statusItem.content)'>
              <p *ngIf='statusItem.image'><a [routerLink]='["/status", statusItem.id]'><img class='img-max' [src]='statusItem.image' /></a></p>
@@ -8,7 +8,7 @@
             </p>
 
 
-            <status-update [statusId]='statusItem.id' (didUpdate)='statusDidUpdate($event)'  *ngIf='statusItem'></status-update>
+            <status-update *ngIf='statusItem' [statusItem]='statusItem' (statusUpdated)='statusDidUpdate($event, statusItem)'></status-update>
 
 
         </div>

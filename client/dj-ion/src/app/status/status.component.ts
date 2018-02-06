@@ -33,10 +33,13 @@ export class StatusComponent implements OnInit, OnDestroy{
     }
   }
 
-  statusDidUpdate(){
-    this.getData()
-    this.refreshCount = this.refreshCount +1
-    console.log("refreshed", this.refreshCount, "times")
+  statusDidUpdate(event, statusItem){
+    console.log(statusItem)
+    // console.log("status did update here", event)
+    // this.statusItem = event as Status
+    // this.getData()
+    statusItem = event
+    // 
   }
 
 }
