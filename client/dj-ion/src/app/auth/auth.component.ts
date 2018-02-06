@@ -23,7 +23,8 @@ export class AuthComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit() {
-      this.usernameField  = new FormControl("", [
+      let username = this.authAPI.getUsername()
+      this.usernameField  = new FormControl(username, [
                   Validators.required,
                   Validators.minLength(0),
                   Validators.maxLength(280)
@@ -48,6 +49,7 @@ export class AuthComponent implements OnInit, OnDestroy {
        let token = this.userData.token || null
        let date = new Date(data.expires)
        this.authAPI.performLogin(token, date)
+       this.authAPI.setUsername(this.userData)
        this.didLogin = true
       }, error=>{
         this.loginErrors = error['error']['detail']

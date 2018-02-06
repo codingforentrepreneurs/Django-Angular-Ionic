@@ -1,6 +1,7 @@
 import { Component, EventEmitter,  OnInit, OnDestroy, Input, Output} from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 
+import { AuthAPIService } from '../auth/auth.service';
 import { Status } from '../status/status';
 import { StatusAPIService } from '../status/status.service';
 
@@ -19,17 +20,21 @@ export class StatusUpdateComponent implements OnInit, OnDestroy {
     @Output() statusUpdated = new EventEmitter<Status>();
     statusUpdateSub: any;
 
-    isUserOwner = true; // solve this issue
+    isUserOwner = false; // solve this issue
 
 
 
-  constructor(private statusAPI:StatusAPIService) { }
+  constructor( private authAPI: AuthAPIService, private statusAPI:StatusAPIService) { }
 
   ngOnInit() {
       // console.log(this.statusId)
+
       if (this.statusItem){
-
-
+        let objUser = this.statusItem.user
+        let currentUsername = this.authAPI.getUsername()
+        if (objUser.username == currentUsername) {
+          this.isUserOwner = true
+        }
       this.content  = new FormControl(this.statusItem.content, [
                   Validators.minLength(4),
                   Validators.maxLength(280)

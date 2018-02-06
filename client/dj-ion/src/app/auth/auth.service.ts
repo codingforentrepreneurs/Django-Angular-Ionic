@@ -8,7 +8,7 @@ import { of } from  'rxjs/observable/of';
 import { catchError, map, tap } from  'rxjs/operators';
 
 import {AuthLoginData} from './auth';
-
+import { User } from './user';
 
 
 
@@ -46,7 +46,7 @@ export class AuthAPIService {
   performLogout(msg?:string){
     this.cookieService.delete('jwttoken', '/')
     this.router.navigate(['/login'])
-    // console.log(msg)
+    // this.deleteUsername()
   }
 
   getNextUrl(){
@@ -67,12 +67,25 @@ export class AuthAPIService {
     return this.nextUrl
   }
 
+  setUsername(user:User){
+    this.cookieService.set('username', user.username)
+  }
+
+  deleteUsername(){
+    // fixed off video
+    this.cookieService.delete('username')
+  }
+  getUsername():string{
+    return this.cookieService.get('username') || null
+  }
+
   performLogin(token, expires?:Date, msg?:string){
     let expiryDate = null 
     if (expires){
        expiryDate = expires
     }
-     this.cookieService.set('jwttoken', token, expiryDate, "/"); // set(keyName, value, expires, path)
+     this.cookieService.set('jwttoken', token, expiryDate, "/");
+     // this.cookieService.set('user', token, expiryDate, "/"); // set(keyName, value, expires, path)
      const nextUrl = this.getNextUrl()
      if (nextUrl){
        this.router.navigate([nextUrl])
