@@ -75,6 +75,11 @@ export class StatusAPIService {
       return this.http.post(apiListEndpoint, data)
   }
 
+  update(statusItem:Status): Observable<any>{
+      let apiListEndpoint = `${this.baseUrl}status/${statusItem.id}/` // http://127.0.0.1:8000/api/status/ 
+      return this.http.put(apiListEndpoint, statusItem)
+  }
+
   get(id?: number): Observable<Status>{
       if (!id){
           id = 10

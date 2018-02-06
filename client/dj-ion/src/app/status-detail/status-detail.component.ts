@@ -51,7 +51,8 @@ export class StatusDetailComponent implements OnInit, OnDestroy{
   }
 
   statusDidUpdate(event){
-    console.log("status is", event)
+    // console.log("status did update here", event)
+    this.statusItem = event as Status
   }
 
 
