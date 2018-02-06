@@ -1,29 +1,30 @@
-<p>
-  <button (click)='buttonPressed($event)'>{{ statusId }} change</button>
-   Current {{ count }}
-</p>
+<div *ngIf='isUserOwner'>
+    <p>
+      <button (click)='buttonPressed($event)'>{{ statusId }} change</button>
+       Current {{ count }}
+    </p>
 
+    <form *ngIf='statusItem && viewEditForm'  [formGroup]='statusForm' #statusDir='ngForm' (submit)='handleSubmit($event, statusDir, statusForm)'>
 
-<form *ngIf='statusItem && viewEditForm'  [formGroup]='statusForm' #statusDir='ngForm' (submit)='handleSubmit($event, statusDir, statusForm)'>
-
-    <textarea #myTextArea id='content' name='content' formControlName='content'></textarea>
-    <div *ngIf='content.invalid && (content.dirty || content.touched)'>
-        <div *ngIf='content.errors.maxlength'>
-            Max length is 280
+        <textarea #myTextArea id='content' name='content' formControlName='content'></textarea>
+        <div *ngIf='content.invalid && (content.dirty || content.touched)'>
+            <div *ngIf='content.errors.maxlength'>
+                Max length is 280
+            </div>
+            <div *ngIf='content.errors.minlength'>
+                Min length is 4
+            </div>
         </div>
-        <div *ngIf='content.errors.minlength'>
-            Min length is 4
-        </div>
+
+        <button type='submit' class='btn btn-default' [disabled]='statusForm.invalid'>Save</button>
+        <button type='button' class='btn btn-default' (click)='toggleFormView()'>Cancel</button>
+    </form>
+
+
+    Progress: 
+    <div style='width:%;background-color:#007cae;'>
+        <span *ngIf='uploadProgress > 25 && uploadProgress < 100'>{{ uploadProgress }}%</span>
+        <span *ngIf='uploadProgress == 100'>Done</span>
     </div>
-
-    <button type='submit' class='btn btn-default' [disabled]='statusForm.invalid'>Save</button>
-    <button type='button' class='btn btn-default' (click)='toggleFormView()'>Cancel</button>
-</form>
-
-
-Progress: 
-<div style='width:%;background-color:#007cae;'>
-    <span *ngIf='uploadProgress > 25 && uploadProgress < 100'>{{ uploadProgress }}%</span>
-    <span *ngIf='uploadProgress == 100'>Done</span>
 </div>
 

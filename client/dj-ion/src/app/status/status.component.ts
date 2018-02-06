@@ -33,13 +33,16 @@ export class StatusComponent implements OnInit, OnDestroy{
     }
   }
 
+  replaceWith(array, ogItem, newItem){
+    let ogItemIndex = array.indexOf(ogItem)
+    const numberOfItemsToRemove = 1
+    array.splice(ogItemIndex, numberOfItemsToRemove, newItem)
+    return array
+  }
+
   statusDidUpdate(event, statusItem){
-    console.log(statusItem)
-    // console.log("status did update here", event)
-    // this.statusItem = event as Status
-    // this.getData()
-    statusItem = event
-    // 
+    let newStatusItem = event as Status
+    this.replaceWith(this.results, statusItem, newStatusItem)
   }
 
 }

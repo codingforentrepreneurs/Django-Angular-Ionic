@@ -19,6 +19,8 @@ export class StatusUpdateComponent implements OnInit, OnDestroy {
     @Output() statusUpdated = new EventEmitter<Status>();
     statusUpdateSub: any;
 
+    isUserOwner = true; // solve this issue
+
 
 
   constructor(private statusAPI:StatusAPIService) { }
@@ -35,7 +37,7 @@ export class StatusUpdateComponent implements OnInit, OnDestroy {
       this.statusForm = new FormGroup({
           'content': this.content
       })
-       }
+      }
   }
 
   ngOnDestroy(){
