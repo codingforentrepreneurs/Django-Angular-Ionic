@@ -110,3 +110,12 @@ Full Course is here: [http://joincfe.com/courses/django-angular-ionic](https://w
 [39 - Replace Item in Array](../../tree/aeec0840c4ca881a25d570daa56d8802b2baf907/)
 
 [40 - Ownership Verification](../../tree/ae954008c059519c434c25eb4bb529f37b5cce24/)
+
+[41 - Status Action Part 1](../../tree/93f4d1a34a916118de4d71cbcb3228a95d73796f/)
+
+[42 - Status Action Part 2](../../tree/a762ecb9863c46c7aa4d636160bd1a800b82afe4/)
+
+[43 - Status Action Part 3](../../tree/7c181e0e2f98c6d8e52e3dc36ffc5d477622def3/)
+
+[44 - Status Action Part 4](../../tree/aa75e760f51def94c5b3baee4411bf8850a91c06/)
+
