@@ -18,9 +18,6 @@
     <br/>
 
     <textarea #myTextArea id='content' name='content' formControlName='content'
-        (change)='textAreaChanged()'
-        (click)='textAreaClicked()'
-        (keyup)='textAreaKeyup()'
     ></textarea>
     <p *ngIf='myTextArea.value'>{{ myTextArea.value }}
 

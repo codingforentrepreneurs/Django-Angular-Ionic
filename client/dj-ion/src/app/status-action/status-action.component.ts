@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpEventType, HttpRequest, HttpErrorResponse, HttpEvent } from '@angular/common/http';
@@ -14,7 +14,14 @@ import { StatusAPIService } from '../status/status.service';
 })
 export class StatusActionComponent implements OnInit {
     // Handles Create, Update and Delete of the Status Item
-  newStatus: Status;
+    @Input()
+    isStatusListView = false // is the current component a list?
+    
+    @Output()
+    statusItemCreated = new EventEmitter<Status>() // is a Event
+
+
+    newStatus: Status;
     statusForm: FormGroup;
     content: FormControl;
     errorMsg: string;
@@ -58,14 +65,41 @@ export class StatusActionComponent implements OnInit {
     }
   }
 
-  clearMyTextArea(event){
-    event.preventDefault()
+  resetFileInput() {
+        this.newFileName = null;
+        this.myImageInput.nativeElement.value = "";
+   }
+
+  resetProgress(){
+    this.uploadProgress = 0;
+    this.uploadComplete = false;
+    this.uploadingProgressing = false;
+  }
+
+  resetMyTextArea(event?){
+    if (event){
+      event.preventDefault()
+    }
+    
     this.myContentText.nativeElement.value = ""
   }
 
   callFileInput(event){
     event.preventDefault()
     this.myImageInput.nativeElement.click()
+  }
+
+  handleSuccessfulSave(statusItem){
+    // item was saved!!
+    this.resetFileInput()
+    this.resetMyTextArea()
+    this.resetProgress()
+     if (!this.isStatusListView){
+       this.router.navigate(["/status", statusItem.id])
+     } else {
+       this.statusItemCreated.emit(statusItem)
+     }
+
   }
 
    handleProgress(event){
@@ -85,7 +119,8 @@ export class StatusActionComponent implements OnInit {
         this.serverResponse = event.body
         this.newStatus = event.body as Status
         // success! growl 
-        this.router.navigate(["/status", this.newStatus.id])
+        this.handleSuccessfulSave(this.newStatus)
+        
 
       }
     }
@@ -120,10 +155,6 @@ export class StatusActionComponent implements OnInit {
         }
     }
 
-    resetFileInput() {
-        this.newFileName = null;
-        this.myImageInput.nativeElement.value = "";
-    }
 
     handleError(errorResponse:any){
       let statusCode = errorResponse.status

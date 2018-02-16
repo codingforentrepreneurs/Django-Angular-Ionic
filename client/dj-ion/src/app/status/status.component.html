@@ -1,4 +1,5 @@
-<status-action></status-action>
+<status-action [isStatusListView]='true' (statusItemCreated)='statusDidCreate($event)'></status-action>
+
  <ul>
     <li *ngFor='let statusItem of results'>
        <div *ngIf='statusItem && (statusItem.image || statusItem.content)'>

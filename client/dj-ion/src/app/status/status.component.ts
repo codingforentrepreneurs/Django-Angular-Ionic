@@ -40,6 +40,13 @@ export class StatusComponent implements OnInit, OnDestroy{
     return array
   }
 
+  statusDidCreate(event){
+    let newStatusItem = event as Status
+    this.results.unshift(newStatusItem) // prepend
+    // this.results.push(newStatusItem) // apppend
+    // this.replaceWith(this.results, statusItem, newStatusItem)
+  }
+
   statusDidUpdate(event, statusItem){
     let newStatusItem = event as Status
     this.replaceWith(this.results, statusItem, newStatusItem)
