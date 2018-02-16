@@ -40,6 +40,10 @@ export class StatusActionComponent implements OnInit {
     serverResponse: any;
     newFileName: string;
 
+    newImagePreviewUrl: string;
+    currentImage: string;
+    currentImageDidRemove = false;
+
     @ViewChild('myFileInput')
     myImageInput: any;
 
@@ -58,6 +62,17 @@ export class StatusActionComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+      
+    this.setUpFormData()
+      // console.log(this.myContentText.value)
+  }
+  ngOnDestroy(){
+    if(this.statusAPISub){
+      this.statusAPISub.unsubscribe()
+    }
+  }
+
+  setUpFormData(){
       let content = ""
       
       if (this.statusItemToUpdate){
@@ -65,6 +80,7 @@ export class StatusActionComponent implements OnInit {
         this.viewEditForm = false;
         this.viewToggleBtn = true;
         this.statusUpdateItemId = this.statusItemToUpdate.id
+        this.currentImage = this.statusItemToUpdate.image
         // let currentUsername = this.authAPI.getUsername()
         // if (objUser.username == currentUsername) {
         //   this.isUserOwner = true
@@ -80,13 +96,6 @@ export class StatusActionComponent implements OnInit {
       this.statusForm = new FormGroup({
           'content': this.content
       })
-
-      // console.log(this.myContentText.value)
-  }
-  ngOnDestroy(){
-    if(this.statusAPISub){
-      this.statusAPISub.unsubscribe()
-    }
   }
 
   toggleFormView(){
@@ -116,13 +125,26 @@ export class StatusActionComponent implements OnInit {
     this.myContentText.nativeElement.value = ""
   }
 
+  resetFormAll(){
+    this.newImagePreviewUrl = undefined
+    this.currentImageDidRemove = false
+    this.resetFileInput()
+    this.setUpFormData()
+  }
+
   callFileInput(event){
     event.preventDefault()
     this.myImageInput.nativeElement.click()
   }
 
+  toggleRemoveCurrentImage(event){
+    event.preventDefault()
+    this.currentImageDidRemove = !this.currentImageDidRemove
+  }
+
   handleSuccessfulSave(statusItem){
     // item was saved!!
+    this.newImagePreviewUrl = undefined;
     this.resetFileInput()
     this.resetMyTextArea()
     this.resetProgress()
@@ -132,6 +154,8 @@ export class StatusActionComponent implements OnInit {
      this.statusItemCreated.emit(statusItem)
      this.statusUpdated.emit(statusItem)
   }
+
+  
 
    handleProgress(event){
     if (event.type === HttpEventType.DownloadProgress) {
@@ -165,9 +189,17 @@ export class StatusActionComponent implements OnInit {
         let submittedData = statusForm.value
         let content = submittedData.content
         let imageFile;
+        let deleteImage;
 
+        if (this.imageToUpload){
+          imageFile = this.imageToUpload
+        } else if (this.currentImageDidRemove 
+                  && this.currentImage){
+           imageFile = null
+           deleteImage = true
+        }
         this.statusAPISub = this.statusAPI.createOrUpdate(
-                        content, imageFile, this.statusUpdateItemId
+                        content, imageFile, this.statusUpdateItemId, deleteImage
                  ).subscribe(
               event=>{
                 this.handleProgress(event)
@@ -177,11 +209,18 @@ export class StatusActionComponent implements OnInit {
               });
       }
   }
-   handleFileInput(files: FileList) {
-        let fileItem = files.item(0);
-        if (fileItem){
-          this.newFileName = fileItem.name
-          this.imageToUpload = fileItem
+   handleImageInput(files: FileList) {
+        let imageItem = files.item(0);
+        if (imageItem){
+          this.newFileName = imageItem.name
+          this.imageToUpload = imageItem
+
+          let reader = new FileReader()
+          reader.readAsDataURL(imageItem)
+          reader.onload = (e:any) => {
+            this.newImagePreviewUrl = e.target.result
+          }
+
         }
     }
 

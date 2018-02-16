@@ -9,28 +9,26 @@
 <form *ngIf='viewEditForm' [formGroup]='statusForm' #statusDir='ngForm' (submit)='handleSubmit($event, statusDir, statusForm)'>
 
     <div class="form-group image-upload-group" style=''>
-        <label for="image">Choose Image</label>
+       <!--  <label for="image">Choose Image</label> -->
             <input #myFileInput type="file"
                    id="image"
+                   class='hidden'
                    accept='image/*,'
-                   (change)="handleFileInput($event.target.files)">
+                   (change)="handleImageInput($event.target.files)">
     </div>
 
 
-    <a href='#' (click)='callFileInput($event)'>Select File
 
-        <span *ngIf='newFileName'>{{ newFileName }}</span>
-    </a>
+    <p *ngIf='newImagePreviewUrl'>
+        <small>Image Upload Preview</small>
+        <img [src]='newImagePreviewUrl' width='100' />
+    </p>
+    <a href='#' (click)='callFileInput($event)'>Select Image</a>
 
     <br/>
 
     <textarea #myTextArea id='content' name='content' formControlName='content'
     ></textarea>
-    <p *ngIf='myTextArea.value'>{{ myTextArea.value }}
-
-        <br/>
-            <a href='#' (click)='clearMyTextArea($event)'>Clear</a>
-    </p>
 
     <div *ngIf='content.invalid && (content.dirty || content.touched)'>
         <div *ngIf='content.errors.maxlength'>
@@ -41,9 +39,11 @@
         </div>
     </div>
 
-
+    <p>
     <button type='submit' class='btn btn-default' [disabled]='statusForm.invalid'>Submit</button>
-    <button type='button' class='btn btn-default' (click)='statusDir.resetForm({});resetFileInput()'>Reset</button>
+    <button type='button' class='btn btn-default' *ngIf='currentImage' (click)='toggleRemoveCurrentImage($event)'><span *ngIf='currentImageDidRemove'>Removing</span><span *ngIf='!currentImageDidRemove'>Remove</span> Image</button>
+    <button type='button' class='btn btn-default' (click)='resetFormAll()'>Reset</button>
+    </p>
 </form>
 
 

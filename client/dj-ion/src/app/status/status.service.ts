@@ -39,7 +39,7 @@ export class StatusAPIService {
       return this.http.get(apiListEndpoint)
   }
 
-  createOrUpdate(content?:string, image?:File, id?:number){
+  createOrUpdate(content?:string, image?:File, id?:number, deleteImage?:boolean){
       let httpMethod = 'POST'
       let apiEndpoint = `${this.baseUrl}status/`
       if (id){
@@ -52,11 +52,12 @@ export class StatusAPIService {
       if (content){
         formData.append('content', content)
       }
-      
+       
       if (image){
         formData.append('image', image, image.name);
+      } else if (deleteImage){
+        formData.append('image', '') // delete on the server
       }
-
       const req = new HttpRequest(httpMethod, apiEndpoint, formData, {
         reportProgress: true // for progress data
       });
