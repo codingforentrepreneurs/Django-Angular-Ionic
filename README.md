@@ -119,3 +119,4 @@ Full Course is here: [http://joincfe.com/courses/django-angular-ionic](https://w
 
 [44 - Status Action Part 4](../../tree/aa75e760f51def94c5b3baee4411bf8850a91c06/)
 
+[45 - Status Action Part 5 - Replace, Upload, or Delete Image](../../tree/6ed606b24caba4d4abd03c525a142cf9c4f516ab/)
