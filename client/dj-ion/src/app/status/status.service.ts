@@ -39,6 +39,30 @@ export class StatusAPIService {
       return this.http.get(apiListEndpoint)
   }
 
+  createOrUpdate(content?:string, image?:File, id?:number){
+      let httpMethod = 'POST'
+      let apiEndpoint = `${this.baseUrl}status/`
+      if (id){
+        apiEndpoint = `${this.baseUrl}status/${id}/`
+        httpMethod = 'PUT'
+      }
+      // console.log(apiEndpoint, httpMethod)
+      
+      const formData: FormData = new FormData(); //?
+      if (content){
+        formData.append('content', content)
+      }
+      
+      if (image){
+        formData.append('image', image, image.name);
+      }
+
+      const req = new HttpRequest(httpMethod, apiEndpoint, formData, {
+        reportProgress: true // for progress data
+      });
+      return this.http.request(req)
+  }
+
   createAndUpload(fileItem?:File, extraData?:object):any{
       let apiListEndpoint = `${this.baseUrl}status/`
       const formData: FormData = new FormData(); //?

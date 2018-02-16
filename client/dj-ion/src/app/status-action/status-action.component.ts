@@ -21,12 +21,13 @@ export class StatusActionComponent implements OnInit {
 
     // update related
     @Input() statusItemToUpdate: Status;
+    statusUpdateItemId: number; 
     @Output() statusUpdated = new EventEmitter<Status>();
 
     viewEditForm = true;
     viewToggleBtn = false;
 
-    newStatus: Status;
+    responseStatusItem: Status;
     statusForm: FormGroup;
     content: FormControl;
     errorMsg: string;
@@ -46,6 +47,9 @@ export class StatusActionComponent implements OnInit {
     myContentText:any;
 
 
+    statusAPISub:any;
+
+
     // status  = {content: ''}
 
   constructor(
@@ -60,6 +64,7 @@ export class StatusActionComponent implements OnInit {
         let objUser = this.statusItemToUpdate.user
         this.viewEditForm = false;
         this.viewToggleBtn = true;
+        this.statusUpdateItemId = this.statusItemToUpdate.id
         // let currentUsername = this.authAPI.getUsername()
         // if (objUser.username == currentUsername) {
         //   this.isUserOwner = true
@@ -79,8 +84,8 @@ export class StatusActionComponent implements OnInit {
       // console.log(this.myContentText.value)
   }
   ngOnDestroy(){
-    if(this.statusCreateSub){
-      this.statusCreateSub.unsubscribe()
+    if(this.statusAPISub){
+      this.statusAPISub.unsubscribe()
     }
   }
 
@@ -123,10 +128,9 @@ export class StatusActionComponent implements OnInit {
     this.resetProgress()
      if (!this.isStatusListView){
        this.router.navigate(["/status", statusItem.id])
-     } else {
-       this.statusItemCreated.emit(statusItem)
-     }
-
+     } 
+     this.statusItemCreated.emit(statusItem)
+     this.statusUpdated.emit(statusItem)
   }
 
    handleProgress(event){
@@ -144,9 +148,9 @@ export class StatusActionComponent implements OnInit {
         // console.log(event.body);
         this.uploadComplete = true
         this.serverResponse = event.body
-        this.newStatus = event.body as Status
+        this.responseStatusItem = event.body as Status
         // success! growl 
-        this.handleSuccessfulSave(this.newStatus)
+        this.handleSuccessfulSave(this.responseStatusItem)
         
 
       }
@@ -158,36 +162,19 @@ export class StatusActionComponent implements OnInit {
       event.preventDefault()
       this.statusDir = statusDir
       if (statusDir.submitted){
+        let submittedData = statusForm.value
+        let content = submittedData.content
+        let imageFile;
 
-          let submittedData = statusForm.value
-          if (this.statusItemToUpdate){
-            let newStatusItem = new Status()
-              newStatusItem.id = this.statusItemToUpdate.id
-              newStatusItem.content = statusForm.value.content
-              newStatusItem.image = null;
-
-              this.statusCreateSub = this.statusAPI.update(
-                newStatusItem
-               ).subscribe(data=>{
-                 this.statusItemToUpdate = data as Status
-                 this.statusUpdated.emit(this.statusItemToUpdate)
-               }, error=>{
-                 console.log(error)
-               })
-          } else {
-             this.statusCreateSub = this.statusAPI.createAndUpload(
-              this.imageToUpload, 
-            submittedData).subscribe(
-                event=>{
-                  this.handleProgress(event)
-                 }, 
-                error=>{
-                    this.handleError(error)
-                });
-          }
-         
-
-          statusDir.resetForm({})
+        this.statusAPISub = this.statusAPI.createOrUpdate(
+                        content, imageFile, this.statusUpdateItemId
+                 ).subscribe(
+              event=>{
+                this.handleProgress(event)
+               }, 
+              error=>{
+                  this.handleError(error)
+              });
       }
   }
    handleFileInput(files: FileList) {
