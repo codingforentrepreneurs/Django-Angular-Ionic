@@ -14,12 +14,17 @@ import { StatusAPIService } from '../status/status.service';
 })
 export class StatusActionComponent implements OnInit {
     // Handles Create, Update and Delete of the Status Item
-    @Input()
-    isStatusListView = false // is the current component a list?
-    
-    @Output()
-    statusItemCreated = new EventEmitter<Status>() // is a Event
 
+    // create related
+    @Input() isStatusListView = false // is the current component a list?    
+    @Output() statusItemCreated = new EventEmitter<Status>() // is a Event
+
+    // update related
+    @Input() statusItemToUpdate: Status;
+    @Output() statusUpdated = new EventEmitter<Status>();
+
+    viewEditForm = true;
+    viewToggleBtn = false;
 
     newStatus: Status;
     statusForm: FormGroup;
@@ -49,7 +54,21 @@ export class StatusActionComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-      this.content  = new FormControl("", [
+      let content = ""
+      
+      if (this.statusItemToUpdate){
+        let objUser = this.statusItemToUpdate.user
+        this.viewEditForm = false;
+        this.viewToggleBtn = true;
+        // let currentUsername = this.authAPI.getUsername()
+        // if (objUser.username == currentUsername) {
+        //   this.isUserOwner = true
+        // }
+        content = this.statusItemToUpdate.content
+      }
+      
+
+      this.content  = new FormControl(content, [
                   Validators.minLength(4),
                   Validators.maxLength(280)
              ])
@@ -63,6 +82,14 @@ export class StatusActionComponent implements OnInit {
     if(this.statusCreateSub){
       this.statusCreateSub.unsubscribe()
     }
+  }
+
+  toggleFormView(){
+    this.viewEditForm = !this.viewEditForm
+  }
+
+  buttonPressed(event){
+      this.toggleFormView()
   }
 
   resetFileInput() {
@@ -133,8 +160,22 @@ export class StatusActionComponent implements OnInit {
       if (statusDir.submitted){
 
           let submittedData = statusForm.value
+          if (this.statusItemToUpdate){
+            let newStatusItem = new Status()
+              newStatusItem.id = this.statusItemToUpdate.id
+              newStatusItem.content = statusForm.value.content
+              newStatusItem.image = null;
 
-          this.statusCreateSub = this.statusAPI.createAndUpload(
+              this.statusCreateSub = this.statusAPI.update(
+                newStatusItem
+               ).subscribe(data=>{
+                 this.statusItemToUpdate = data as Status
+                 this.statusUpdated.emit(this.statusItemToUpdate)
+               }, error=>{
+                 console.log(error)
+               })
+          } else {
+             this.statusCreateSub = this.statusAPI.createAndUpload(
               this.imageToUpload, 
             submittedData).subscribe(
                 event=>{
@@ -143,6 +184,8 @@ export class StatusActionComponent implements OnInit {
                 error=>{
                     this.handleError(error)
                 });
+          }
+         
 
           statusDir.resetForm({})
       }

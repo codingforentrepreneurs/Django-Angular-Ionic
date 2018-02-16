@@ -10,8 +10,10 @@
             </p>
 
 
-            <status-update *ngIf='statusItem' [statusItem]='statusItem' (statusUpdated)='statusDidUpdate($event, statusItem)'></status-update>
+            <!-- <status-update *ngIf='statusItem' [statusItem]='statusItem' (statusUpdated)='statusDidUpdate($event, statusItem)'></status-update> -->
 
+
+            <status-action *ngIf='statusItem' [statusItemToUpdate]='statusItem'  [isStatusListView]='true' (statusUpdated)='statusDidUpdate($event, statusItem)'></status-action>
 
         </div>
 

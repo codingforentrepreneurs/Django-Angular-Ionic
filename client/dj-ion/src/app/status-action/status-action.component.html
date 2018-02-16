@@ -1,5 +1,12 @@
 <span *ngIf='errorMsg'>{{ errorMsg }}</span>
-<form [formGroup]='statusForm' #statusDir='ngForm' (submit)='handleSubmit($event, statusDir, statusForm)'>
+
+<p *ngIf='viewToggleBtn'>
+  <button (click)='buttonPressed($event)'>Change</button>
+</p>
+
+
+
+<form *ngIf='viewEditForm' [formGroup]='statusForm' #statusDir='ngForm' (submit)='handleSubmit($event, statusDir, statusForm)'>
 
     <div class="form-group image-upload-group" style=''>
         <label for="image">Choose Image</label>

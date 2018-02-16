@@ -10,7 +10,9 @@
 
 
 
-<status-update *ngIf='statusItem' [statusItem]='statusItem' (statusUpdated)='statusDidUpdate($event)'></status-update>
+<!-- <status-update *ngIf='statusItem' [statusItem]='statusItem' (statusUpdated)='statusDidUpdate($event)'></status-update> -->
+
+<status-action *ngIf='statusItem' [statusItemToUpdate]='statusItem' (statusUpdated)='statusDidUpdate($event, statusItem)'></status-action>
 
 
 <button (click)='goBack()'>Back</button>
