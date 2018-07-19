@@ -19,3 +19,5 @@ $ pipenv shell
 $ cd src
 $ python manage.py runserver
 ```
+
+Missing [pipenv](https://www.youtube.com/watch?v=K2fNEoZfuy8)?
