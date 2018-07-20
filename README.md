@@ -1,7 +1,5 @@
 # Django + Angular + Ionic
 
-## *Coming Soon*
-
 [![Django + Angular + Ionic Logo](https://cfe2-static.s3-us-west-2.amazonaws.com/media/courses/django-angular-ionic/images/Django_Angular_Ionic.jpg)
 ](https://www.codingforentrepreneurs.com/courses/django-angular-ionic/)
 
